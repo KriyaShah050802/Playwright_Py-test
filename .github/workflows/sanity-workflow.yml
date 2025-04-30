@@ -1,26 +1,26 @@
 name: 'Run Tests with Percy'
+
 on: [push]
+
 jobs:
   ubuntu-job:
     name: 'BrowserStack Test on Ubuntu'
     runs-on: ubuntu-latest
     steps:
+      - name: 'Checkout the repository'
+        uses: actions/checkout@v2
 
       - name: 'BrowserStack Env Setup'
         uses: browserstack/github-actions/setup-env@master
         with:
-          username:  ${{ secrets.BROWSERSTACK_USERNAME }}
+          username: ${{ secrets.BROWSERSTACK_USERNAME }}
           access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
        
-
       - name: 'BrowserStack Local Tunnel Setup'
         uses: browserstack/github-actions/setup-local@master
         with:
           local-testing: start
           local-identifier: random
-
-      - name: 'Checkout the repository'
-        uses: actions/checkout@v2
 
       - name: 'Building web application to be tested'
         run: npm install
@@ -32,7 +32,6 @@ jobs:
         run: npx percy exec -- browserstack-sdk pytest tests/test_courses.py
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          
 
       - name: 'BrowserStackLocal Stop'
         uses: browserstack/github-actions/setup-local@master
