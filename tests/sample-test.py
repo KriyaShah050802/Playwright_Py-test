@@ -1,5 +1,6 @@
 import pytest
 from playwright.sync_api import expect
+from percy import percy_screenshot
 
 
 def test_bstack_sample(page) -> None:
@@ -20,6 +21,7 @@ def test_bstack_sample(page) -> None:
         expect(page.locator(".bag__quantity")).to_have_count(1)
         # Verify if there is only one item in the shopping cart
         expect(page.locator(".bag__quantity")).to_have_text("1")
+        percy_screenshot(page, name = 'Screenshot 1')
 
         # Get the handle for cart item
         cart_item = page.locator(".shelf-item__details")
