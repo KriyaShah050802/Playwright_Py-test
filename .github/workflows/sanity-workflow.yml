@@ -32,10 +32,7 @@ jobs:
         run: npx percy exec -- browserstack-sdk pytest tests/test_courses.py
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-          TEST_GMAIL: ${{ secrets.TEST_GMAIL }}
-          TEST_GMAIL_PASSWORD: ${{ secrets.TEST_GMAIL_PASSWORD }}
-          HSG_TEST_EMAIL: ${{ secrets.HSG_TEST_EMAIL }}
-          HSG_TEST_EMAIL_PASSWORD: ${{ secrets.HSG_TEST_EMAIL_PASSWORD }}
+          
 
       - name: 'BrowserStackLocal Stop'
         uses: browserstack/github-actions/setup-local@master
