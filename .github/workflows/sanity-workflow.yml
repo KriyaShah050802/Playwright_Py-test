@@ -1,6 +1,13 @@
-name: 'Run Tests with Percy'
+name: 'Run Tests with BrowserStack'
 
 on: [push]
+
+concurrency:
+  group: run-tests-with-browserstack
+  cancel-in-progress: true
+
+env:
+  BROWSERSTACK_BUILD_IDENTIFIER: ${{ github.sha }}
 
 jobs:
   ubuntu-job:
@@ -22,14 +29,19 @@ jobs:
           local-testing: start
           local-identifier: random
 
-      - name: 'Building web application to be tested'
-        run: npm install
+      - name: 'Install Percy'
+        run: |
+             npm install @percy/cli
+             npm install browserstack-node-sdk
 
-      - name: 'Running application under test'
-        run: ./node_modules/.bin/http-server -p 8099 &
+      - name: 'Install Python dependencies'
+        run: |
+             python3 -m venv env
+             source env/bin/activate && pip3 install -r requirements.txt
 
       - name: 'Running test on BrowserStack'
-        run: npx percy exec -- browserstack-sdk pytest tests/test_courses.py
+        run: |
+             source env/bin/activate && npx percy exec --verbose -- browserstack-sdk pytest tests/test_admin.py
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
