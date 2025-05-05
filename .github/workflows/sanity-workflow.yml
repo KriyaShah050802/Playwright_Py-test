@@ -15,21 +15,22 @@ jobs:
         with:
           username: ${{ secrets.BSTACK_NAME_ }}
           access-key: ${{ secrets.BSTACK_ACC_ }}
+      - name: 'Install Percy'
+        run: |
+             npm install @percy/cli
+             npm install browserstack-node-sdk
+
        
      
 
       - name: 'Building web application to be tested'
         run:  pip3 install -r requirements.txt
 
-      - name: 'Running application under test'
-        run: ./node_modules/.bin/http-server -p 8099 &
+    
 
       - name: 'Running test on BrowserStack'
         run: npx percy exec -- browserstack-sdk pytest tests/test_courses.py
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_}}
 
-      - name: 'BrowserStackLocal Stop'
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: stop
+      
