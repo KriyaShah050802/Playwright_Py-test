@@ -19,7 +19,7 @@ jobs:
      
 
       - name: 'Building web application to be tested'
-        run: npm install
+        run:  pip3 install -r requirements.txt
 
       - name: 'Running application under test'
         run: ./node_modules/.bin/http-server -p 8099 &
