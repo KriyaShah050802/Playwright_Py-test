@@ -16,11 +16,7 @@ jobs:
           username: ${{ secrets.BSTACK_NAME_ }}
           access-key: ${{ secrets.BSTACK_ACC_ }}
        
-      - name: 'BrowserStack Local Tunnel Setup'
-        uses: browserstack/github-actions/setup-local@master
-        with:
-          local-testing: start
-          local-identifier: random
+     
 
       - name: 'Building web application to be tested'
         run: npm install
