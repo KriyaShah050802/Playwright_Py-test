@@ -13,8 +13,8 @@ jobs:
       - name: 'BrowserStack Env Setup'
         uses: browserstack/github-actions/setup-env@master
         with:
-          username: ${{ secrets.BROWSERSTACK_USERNAME }}
-          access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          username: ${{ secrets.BSTACK_NAME_ }}
+          access-key: ${{ secrets.BSTACK_ACC_ }}
        
       - name: 'BrowserStack Local Tunnel Setup'
         uses: browserstack/github-actions/setup-local@master
@@ -31,7 +31,7 @@ jobs:
       - name: 'Running test on BrowserStack'
         run: npx percy exec -- browserstack-sdk pytest tests/test_courses.py
         env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN_}}
 
       - name: 'BrowserStackLocal Stop'
         uses: browserstack/github-actions/setup-local@master
