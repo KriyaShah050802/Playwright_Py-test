@@ -5,8 +5,5 @@ platforms:
     osVersion: 11
     browserName: chrome
     browserVersion: latest
-  - os: OS X
-    osVersion: Ventura
-    browserName: playwright-webkit
-    browserVersion: latest
+  
   
